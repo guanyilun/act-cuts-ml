@@ -114,7 +114,7 @@ class TrainCNNModel(Routine):
         
         label = keras.utils.to_categorical(label, self._num_classes)
         
-        epochs = 5
+        epochs = 10
         self.model.fit(data, label,
                        epochs=epochs,
                        verbose=1)
@@ -122,4 +122,4 @@ class TrainCNNModel(Routine):
 
         
     def finalize(self):
-        self.model.save('test_model.h5')
+        self.model.save('1021_model.h5')
