@@ -82,12 +82,16 @@ class FairSample(Routine):
         # get good and bad detectors
         n_dets = len(label)
         good_dets = np.where(label==1)[0] # i.e. [0,10,13, ...]
-        bad_dets = np.where(label==0)[0] 
+        bad_dets = np.where(label==0)[0]
+
+        # if either list is empty, skip the fair sampling procedure
+        if len(good_dets)==0 or len(bad_dets)==0:
+            return
         
         # define the ratio of sampling, with n labels to start with
         # and with a sampling factor of 2 means that after sampling
         # there will be 2n labels
-        sample_factor = 2
+        sample_factor = 1
 
         # sample equal number of good and bad detectors for training
         good_dets_sample = np.random.choice(good_dets, sample_factor*n_dets)

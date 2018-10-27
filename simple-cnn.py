@@ -12,5 +12,5 @@ loop.add_routine(GetDataLabel(tod_container="tod_data", downsample=20, \
                               data_container="data", label_container="label"))
 loop.add_routine(FairSample(data_container="data", label_container="label"))
 
-loop.add_routine(TrainCNNModel())
-loop.run(0, 8)
+loop.add_routine(TrainCNNModel(output_file="1026.h5"))
+loop.run(0, 80)

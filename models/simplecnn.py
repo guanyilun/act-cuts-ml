@@ -7,9 +7,10 @@ from matplotlib import pyplot as plt
 from todloop.base import Routine
 
 class TrainCNNModel(Routine):
-    def __init__(self):
+    def __init__(self, output_file):
         self.model = None
         self._num_classes = 2
+        self._output_file = output_file
 
     def initialize(self):
         # define CNN model
@@ -58,4 +59,4 @@ class TrainCNNModel(Routine):
 
         
     def finalize(self):
-        self.model.save('1021_model.h5')
+        self.model.save(self._output_file)
