@@ -45,9 +45,9 @@ class TrainCNNModel(Routine):
         # retrieve data and label
         data = self.get_store().get("data")
         label = self.get_store().get("label")
+        
         data = data.astype('float32')
         data = data.reshape(data.shape[0], 1, data.shape[1], 1)
-        print data.shape
         
         label = keras.utils.to_categorical(label, self._num_classes)
         
@@ -55,8 +55,6 @@ class TrainCNNModel(Routine):
         self.model.fit(data, label,
                        epochs=epochs,
                        verbose=1)
-        # self.model.train_on_batch(data, label)
-
         
     def finalize(self):
         self.model.save(self._output_file)
