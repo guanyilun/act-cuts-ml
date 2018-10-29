@@ -120,9 +120,8 @@ class GlobalFairSample(Routine):
         # get the range of dets in this TOD
         det_lower_lim = self._det_counter
         det_upper_lim = det_lower_lim + n_dets
-        self._det_counter += n_dets  # update counter
         
-        dets_sample = np.array([i for i in np.arange(det_lower_lim, det_upper_lim) if i in self._dets_sample])
+        dets_sample = np.array([i for i in np.arange(det_lower_lim, det_upper_lim) if i in self._dets_sample]) - self._det_counter
         
         # if sample list is empty, skip the TOD
         if len(dets_sample)==0:
@@ -138,4 +137,6 @@ class GlobalFairSample(Routine):
 
         self.get_store().set(self._data_container, new_data)
         self.get_store().set(self._label_container, new_label)
+
+        self._det_counter += n_dets  # update counter
         

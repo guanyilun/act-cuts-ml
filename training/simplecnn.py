@@ -51,7 +51,7 @@ class TrainCNNModel(Routine):
         
         label = keras.utils.to_categorical(label, self._num_classes)
         
-        epochs = 10
+        epochs = 5
         self.model.fit(data, label,
                        epochs=epochs,
                        verbose=1)
