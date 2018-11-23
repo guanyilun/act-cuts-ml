@@ -14,24 +14,21 @@ class TrainCNNModel(Routine):
 
     def initialize(self):
         # define CNN model
-
-        input_shape = (1, None, 1) # varaible input size
+        input_shape = (1, None, 1) # variable input size
         model = Sequential()
-        model.add(Conv2D(128, kernel_size=(1, 10), strides=(1, 2),
+        model.add(Conv2D(16, kernel_size=(1, 5), strides=(1, 2),
                          activation='relu',
                          input_shape=input_shape))
-        model.add(MaxPooling2D(pool_size=(1, 2), strides=(1, 2)))
-        model.add(Conv2D(64, (1, 10), activation='relu'))
-        model.add(MaxPooling2D(pool_size=(1, 2)))
+        model.add(MaxPooling2D(pool_size=(1, 4), strides=(1, 2)))
+        model.add(Conv2D(32, (1, 5), activation='relu'))
+        model.add(MaxPooling2D(pool_size=(1, 4), strides=(1, 2)))
+        model.add(Conv2D(64, (1, 5), activation='relu'))
+        model.add(MaxPooling2D(pool_size=(1, 4), strides=(1,2)))
+        model.add(Conv2D(128, (1, 5), activation='relu'))
+        model.add(MaxPooling2D(pool_size=(1, 4), strides=(1,2)))        
+        model.add(GlobalMaxPooling2D())  # try to fix the flatten problem with GlobalMaxPooling2D
 
-        model.add(Conv2D(64, (1, 10), activation='relu'))
-        model.add(MaxPooling2D(pool_size=(1, 2)))
-        # model.add(Flatten())  # useful when shape is not (1, None, 1)
-        model.add(GlobalMaxPooling2D()) # try to fix the flatten problem with GlobalMaxPooling2D
-        model.add(Dropout(0.25))
-
-        model.add(Dense(500, activation='relu'))
-        model.add(Dropout(0.5))
+        model.add(Dense(128, activation='relu'))
         model.add(Dense(self._num_classes, activation='softmax'))
 
         # compile model
@@ -51,7 +48,7 @@ class TrainCNNModel(Routine):
         
         label = keras.utils.to_categorical(label, self._num_classes)
         
-        epochs = 5
+        epochs = 30
         self.model.fit(data, label,
                        epochs=epochs,
                        verbose=1)

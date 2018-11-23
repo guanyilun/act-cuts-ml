@@ -7,13 +7,14 @@ from keras.models import load_model
 
 
 class GetValidationDataLabel(GetTrainingDataLabel):
-    def __init__(self, tod_container, data_container, label_container, downsample=None):
-        GetTrainingDataLabel.__init__(self, tod_container, data_container, label_container, downsample)
+    def __init__(self, tod_container, data_container, label_container, downsample=None, truncate=None):
+        GetTrainingDataLabel.__init__(self, tod_container, data_container, label_container, downsample, truncate)
         
     def initialize(self):
         # load testing label
         self.labels = np.load("data/test_label.npy")
-        
+
+    
 
 class ValidateModel(Routine):
     def __init__(self, model, label_container="label", prediction_container="prediction"):
